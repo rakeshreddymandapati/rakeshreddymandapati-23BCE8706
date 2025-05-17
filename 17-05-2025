@@ -1,0 +1,62 @@
+use vitap;
+CREATE TABLE vitap (
+    ssid INT PRIMARY KEY,
+    name VARCHAR(50),
+    email VARCHAR(100),
+    graduation_year INT
+);
+
+INSERT INTO vitap VALUES
+(101, 'Aarav Reddy', 'aarav.reddy@vitap.ac.in', 2025),
+(102, 'Bhavya Iyer', 'bhavya.iyer@vitap.ac.in', 2026),
+(103, 'Charan Raj', 'charan.raj@vitap.ac.in', 2024),
+(104, 'Divya Sharma', 'divya.sharma@vitap.ac.in', 2025),
+(105, 'Esha Verma', 'esha.verma@vitap.ac.in', 2026),
+(106, 'Farhan Ali', 'farhan.ali@vitap.ac.in', 2024),
+(107, 'Gauri Menon', 'gauri.menon@vitap.ac.in', 2025),
+(108, 'Harsha Vardhan', 'harsha.vardhan@vitap.ac.in', 2026),
+(109, 'Isha Kapoor', 'isha.kapoor@vitap.ac.in', 2025),
+(110, 'Jay Mehta', 'jay.mehta@vitap.ac.in', 2024);
+CREATE TABLE vit_vellore (
+    ssid INT PRIMARY KEY,
+    name VARCHAR(50),
+    email VARCHAR(100),
+    graduation_year INT
+);
+
+INSERT INTO vit_vellore VALUES
+(201, 'Kiran Nair', 'kiran.nair@vit.ac.in', 2025),
+(202, 'Lavanya R', 'lavanya.r@vit.ac.in', 2026),
+(203, 'Manish Tiwari', 'manish.tiwari@vit.ac.in', 2024),
+(204, 'Nikita Agarwal', 'nikita.agarwal@vit.ac.in', 2025),
+(205, 'Om Prakash', 'om.prakash@vit.ac.in', 2026),
+(206, 'Pooja Shetty', 'pooja.shetty@vit.ac.in', 2025),
+(207, 'Qasim Ahmed', 'qasim.ahmed@vit.ac.in', 2024),
+(208, 'Ritika Roy', 'ritika.roy@vit.ac.in', 2026),
+(209, 'Sahil Khan', 'sahil.khan@vit.ac.in', 2025),
+(210, 'Tanvi Singh', 'tanvi.singh@vit.ac.in', 2024);
+CREATE TABLE vit_bengaluru (
+    ssid INT PRIMARY KEY,
+    name VARCHAR(50),
+    email VARCHAR(100),
+    graduation_year INT
+);
+
+INSERT INTO vit_bengaluru VALUES
+(301, 'Utkarsh Joshi', 'utkarsh.joshi@vitblr.ac.in', 2025),
+(302, 'Vanya Sinha', 'vanya.sinha@vitblr.ac.in', 2026),
+(303, 'Wasim Khan', 'wasim.khan@vitblr.ac.in', 2024),
+(304, 'Xenia Paul', 'xenia.paul@vitblr.ac.in', 2025),
+(305, 'Yash Dubey', 'yash.dubey@vitblr.ac.in', 2026),
+(306, 'Zara Sheikh', 'zara.sheikh@vitblr.ac.in', 2024),
+(307, 'Abhay Rana', 'abhay.rana@vitblr.ac.in', 2025),
+(308, 'Bhoomi Shah', 'bhoomi.shah@vitblr.ac.in', 2026),
+(309, 'Chetan Desai', 'chetan.desai@vitblr.ac.in', 2025),
+(310, 'Diksha Jain', 'diksha.jain@vitblr.ac.in', 2024);
+select * from vitap;
+ALTER TABLE vitap ADD (phone VARCHAR(10));
+DESC vitap;
+ALTER TABLE vitap DROP COLUMN phone;
+ALTER TABLE vitap ADD (s_country VARCHAR(10) DEFAULT 'India');
+UPDATE vitap SET name = 'Charan Kumar' WHERE ssid = 103;
+
