@@ -1,0 +1,113 @@
+use vitap;
+
+select * from worker;
+
+SELECT COUNT(department)
+FROM worker
+GROUP BY department
+ORDER BY COUNT(department) DESC
+LIMIT 1;
+
+select sum(salary) from worker group by department order by sum(salary) limit 1;  #max
+
+select department, count(department) from worker 
+group by department having count(department)>3;
+
+SELECT department, SUM(salary)    
+FROM worker
+GROUP BY department
+ORDER BY SUM(salary) DESC
+LIMIT 1 OFFSET 1   ;    # for sec max
+
+
+SELECT department, SUM(salary)    
+FROM worker
+GROUP BY department
+ORDER BY SUM(salary) DESC
+LIMIT 1 OFFSET 2 ;  # for third max
+
+SELECT FIRST_NAME, DEPARTMENT 
+FROM WORKER 
+WHERE SALARY = (SELECT MAX(SALARY) FROM WORKER);
+
+SELECT first_name, department 
+FROM Worker 
+WHERE salary > (SELECT AVG(salary) FROM Worker);
+
+SELECT first_name, department 
+FROM Worker 
+WHERE salary > (SELECT MIN(salary) FROM Worker);
+
+SELECT WorkerID, Name, Department, Salary
+FROM Worker W1
+WHERE Salary > (
+    SELECT AVG(Salary)
+    FROM Worker W2
+    WHERE W2.Department = W1.Department
+);
+
+
+CREATE TABLE Student (
+    student_id INT PRIMARY KEY,
+    student_name VARCHAR(100) NOT NULL
+);
+INSERT INTO Student (student_id, student_name) VALUES
+(1, 'Rakesh'),
+(2, 'Anjali'),
+(3, 'Vikram');
+SELECT * FROM Student;
+
+CREATE TABLE Subject (
+    subject_id INT PRIMARY KEY,
+    subject_name VARCHAR(100)
+);
+INSERT INTO Subject (subject_id, subject_name) VALUES
+(101, 'MATHS'),
+(102, 'Science');
+
+SELECT *
+FROM Student
+CROSS JOIN Subject;
+
+SELECT *
+FROM Student
+NATURAL JOIN subject;
+
+SELECT s.student_id, s.student_name, sub.subject_name
+FROM Student s
+LEFT JOIN Subject sub ON s.student_id = sub.subject_id;
+
+CREATE TABLE StudentSubject (
+    student_id INT,
+    subject_id INT,
+    FOREIGN KEY (student_id) REFERENCES Student(student_id),
+    FOREIGN KEY (subject_id) REFERENCES Subject(subject_id)
+);
+
+INSERT INTO StudentSubject (student_id, subject_id) VALUES
+(1, 101),
+(1, 102),
+(2, 101);
+
+SELECT s.student_name, sub.subject_name
+FROM StudentSubject ss
+JOIN Student s ON ss.student_id = s.student_id
+JOIN Subject sub ON ss.subject_id = sub.subject_id;
+
+SELECT s.student_name, sub.subject_name
+FROM StudentSubject ss
+INNER JOIN Student s ON ss.student_id = s.student_id
+INNER JOIN Subject sub ON ss.subject_id = sub.subject_id;
+
+SELECT s.student_name, sub.subject_name
+FROM StudentSubject ss
+RIGHT JOIN Subject sub ON ss.subject_id = sub.subject_id
+LEFT JOIN Student s ON ss.student_id = s.student_id;
+
+SELECT MAX(SALARY) AS Fifth_Highest_Salary
+FROM Worker W1
+WHERE 5 = (
+    SELECT COUNT(DISTINCT SALARY)
+    FROM Worker W2
+    WHERE W2.SALARY >= W1.SALARY
+);
