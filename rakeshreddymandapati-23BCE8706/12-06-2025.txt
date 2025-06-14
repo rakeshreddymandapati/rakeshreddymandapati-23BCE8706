@@ -1,0 +1,43 @@
+step-1
+cd/
+mkdir C:\data\db0
+
+"C:\Program Files\MongoDB\Server\8.0\bin\mongod.exe" --port 27017 --dbpath C:\data\db0 --replSet rs0
+
+
+step-2
+
+cd/
+mkdir C:\data\db1
+
+"C:\Program Files\MongoDB\Server\8.0\bin\mongod.exe" --port 27018 --dbpath C:\data\db1 --replSet rs0
+
+
+
+step-3
+
+cd/
+mkdir C:\data\db2
+
+"C:\Program Files\MongoDB\Server\8.0\bin\mongod.exe" --port 27019 --dbpath C:\data\db2 --replSet rs0
+
+
+step-4
+
+"C:\Users\rakes\AppData\Local\Programs\mongosh\mongosh.exe" --port 27017
+
+step-5
+
+rs.initiate({
+  _id: "rs0",
+  members: [
+    { _id: 0, host: "localhost:27017" },
+    { _id: 1, host: "localhost:27018" },
+    { _id: 2, host: "localhost:27019" }
+  ]
+})
+
+
+
+rs.status()
+

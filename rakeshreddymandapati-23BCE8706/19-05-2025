@@ -1,0 +1,110 @@
+#delect,drop,and truncate
+
+#drop-DDL - COMPLY DB , TABLE,COLOUM
+
+show databases;
+
+use vitap;
+CREATE DATABASE IF NOT EXISTS college;
+USE college;
+
+CREATE TABLE Worker (
+    WORKER_ID INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    FIRST_NAME CHAR(25),
+    LAST_NAME CHAR(25),
+    SALARY INT,
+    JOINING_DATE DATETIME,
+    DEPARTMENT CHAR(25)
+);
+INSERT INTO Worker 
+    (WORKER_ID, FIRST_NAME, LAST_NAME, SALARY, JOINING_DATE, DEPARTMENT) VALUES
+    (1, 'Monika', 'Arora', 100000, STR_TO_DATE('14-02-20 09:00:00', '%y-%m-%d %H:%i:%s'), 'HR'),
+    (2, 'Niharika', 'Verma', 80000, STR_TO_DATE('14-06-11 09:00:00', '%y-%m-%d %H:%i:%s'), 'Admin'),
+    (3, 'Vishal', 'Singhal', 300000, STR_TO_DATE('14-02-20 09:00:00', '%y-%m-%d %H:%i:%s'), 'HR'),
+    (4, 'Amitabh', 'Singh', 500000, STR_TO_DATE('14-02-20 09:00:00', '%y-%m-%d %H:%i:%s'), 'Admin'),
+    (5, 'Vivek', 'Bhati', 500000, STR_TO_DATE('14-06-11 09:00:00', '%y-%m-%d %H:%i:%s'), 'Admin'),
+    (6, 'Vipul', 'Diwan', 200000, STR_TO_DATE('14-06-11 09:00:00', '%y-%m-%d %H:%i:%s'), 'Account'),
+    (7, 'Satish', 'Kumar', 75000, STR_TO_DATE('14-01-20 09:00:00', '%y-%m-%d %H:%i:%s'), 'Account'),
+    (8, 'Geetika', 'Chauhan', 90000, STR_TO_DATE('14-04-11 09:00:00', '%y-%m-%d %H:%i:%s'), 'Admin');
+    DELETE FROM Worker WHERE DEPARTMENT = 'Admin';
+    TRUNCATE TABLE Worker;
+    DROP TABLE Worker;
+    
+   
+START TRANSACTION;
+DELETE FROM Worker WHERE DEPARTMENT = 'HR';
+COMMIT;
+START TRANSACTION;
+DELETE FROM Worker WHERE DEPARTMENT = 'Admin';
+ROLLBACK;
+
+SELECT FIRST_NAME AS EMPLOYEE_NAME FROM Worker;
+DESC Worker;
+SELECT * FROM Worker
+WHERE SALARY > 100000 AND DEPARTMENT != 'HR';
+SELECT * FROM Worker
+WHERE DEPARTMENT = 'HR';
+SELECT * FROM Worker
+WHERE DEPARTMENT != 'Admin';
+SELECT * FROM Worker
+WHERE DEPARTMENT = 'Admin' AND SALARY > 90000;
+SELECT * FROM Worker
+WHERE DEPARTMENT = 'HR' OR DEPARTMENT = 'Admin';
+select * from worker where salary <= 200000 and department in ("hr","admin");
+SELECT * FROM WORKER WHERE SALARY >= 100000 AND SALARY <= 300000 AND DEPARTMENT = 'ACCOUNT' OR DEPARTMENT = 'HR';
+SELECT * FROM Worker
+WHERE SALARY IN (75000, 90000, 200000);
+SELECT * FROM Worker
+WHERE DEPARTMENT NOT IN ('Admin', 'HR');
+
+SELECT * FROM Worker
+WHERE WORKER_ID % 2 = 0
+  AND SALARY > 100000
+  AND DEPARTMENT IN ('HR', 'Admin');
+
+SELECT * FROM Worker
+WHERE WORKER_ID % 2 = 0
+  AND SALARY > (SELECT AVG(SALARY) FROM Worker)
+  AND DEPARTMENT IN ('HR', 'Admin');
+
+
+
+
+
+create database vit;
+USE vit;
+
+
+create table cse(
+f_no int,
+name varchar(20)
+);
+INSERT INTO cse VALUES 
+(1001, 'ravi'),
+(1002, 'rahul');
+
+CREATE TABLE devp (
+    name VARCHAR(20),
+    number INT
+);
+START TRANSACTION;
+insert into devp values('rakesh',2005); 
+savepoint a12;
+insert into devp values('Ravi',2004);
+savepoint a1;
+select * from devp;
+delete from devp where name='ravi';
+SELECT * FROM devp;
+rollback to a1;
+select *from devp;
+#Change name from Ravi to Ravindra
+UPDATE devp 
+SET name = 'Ravindra' 
+WHERE number = 2004;
+
+UPDATE devp 
+SET name = 'Ravindra' 
+WHERE name = 'Ravi' AND number = 2004;
+
+SELECT * FROM devp;
+

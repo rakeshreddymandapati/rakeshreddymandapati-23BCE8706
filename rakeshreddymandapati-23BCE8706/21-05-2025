@@ -1,0 +1,154 @@
+CREATE TABLE student_scores (
+    student_id INT PRIMARY KEY,
+    name VARCHAR(100),
+    department VARCHAR(50),
+    score INT,
+    graduation_year INT
+);
+INSERT INTO student_scores (student_id, name, department, score, graduation_year) VALUES
+(1, 'Aditi', 'CSE', 85, 2024),
+(2, 'Rohan', 'ECE', 78, 2023),
+(3, 'Sneha', 'CSE', 92, 2025),
+(4, 'Vikram', 'ME', 66, 2024),
+(5, 'Priya', 'ECE', 74, 2023),
+(6, 'Aarav', 'CSE', 90, 2025),
+(7, 'Meera', 'EEE', 55, 2022),
+(8, 'Rakesh', 'ME', 88, 2024);
+
+SELECT * FROM student_scores
+WHERE score BETWEEN 70 AND 90;
+
+SELECT * FROM student_scores
+WHERE graduation_year NOT BETWEEN 2023 AND 2024;
+
+SELECT 
+  MIN(score) AS MinScore,
+  MAX(score) AS MaxScore
+FROM student_scores;
+
+SELECT COUNT(*) AS TotalStudents
+FROM student_scores;
+
+SELECT department, COUNT(*) AS NumStudents
+FROM student_scores
+GROUP BY department;
+
+SELECT 
+  AVG(score) AS AverageScore,
+  SUM(score) AS TotalScore
+FROM student_scores;
+
+SELECT department, AVG(score) AS AvgScore
+FROM student_scores
+GROUP BY department;
+
+
+USE vitap;
+
+
+CREATE TABLE Worker (
+    WORKER_ID INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    FIRST_NAME CHAR(25),
+    LAST_NAME CHAR(25),
+    SALARY INT(15),
+    JOINING_DATE DATETIME,
+    DEPARTMENT CHAR(25)
+);
+
+
+INSERT INTO Worker 
+    (WORKER_ID, FIRST_NAME, LAST_NAME, SALARY, JOINING_DATE, DEPARTMENT)
+VALUES
+    (001, 'Monika', 'Arora', 100000, '2014-02-20 09:00:00', 'HR'),
+    (002, 'Niharika', 'Verma', 80000, '2014-06-11 09:00:00', 'Admin'),
+    (003, 'Vishal', 'Singhal', 300000, '2014-02-20 09:00:00', 'HR'),
+    (004, 'Amitabh', 'Singh', 500000, '2014-02-20 09:00:00', 'Admin'),
+    (005, 'Vivek', 'Bhati', 500000, '2014-06-11 09:00:00', 'Admin'),
+    (006, 'Vipul', 'Diwan', 200000, '2014-06-11 09:00:00', 'Account'),
+    (007, 'Satish', 'Kumar', 75000, '2014-01-20 09:00:00', 'Account'),
+    (008, 'Geetika', 'Chauhan', 90000, '2014-04-11 09:00:00', 'Admin');
+
+CREATE TABLE Worker_1 (
+    WORKER_ID INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    FIRST_NAME CHAR(25),
+    LAST_NAME CHAR(25),
+    SALARY INT(15),
+    JOINING_DATE DATETIME,
+    DEPARTMENT CHAR(25)
+);
+
+INSERT INTO Worker_1 
+    (WORKER_ID, FIRST_NAME, LAST_NAME, SALARY, JOINING_DATE, DEPARTMENT)
+VALUES
+    (001, 'Monika', 'Arora', 100000, '2014-02-20 09:00:00', 'HR'),
+    (002, 'Niharika', 'Verma', 80000, '2014-06-11 09:00:00', 'Admin'),
+    (003, 'Vishal', 'Singhal', 300000, '2014-02-20 09:00:00', 'HR'),
+    (004, 'Amitabh', 'Singh', 500000, '2014-02-20 09:00:00', 'Admin'),
+    (005, 'Vivek', 'Bhati', 500000, '2014-06-11 09:00:00', 'Admin'),
+    (006, 'Vipul', 'Diwan', 200000, '2014-06-11 09:00:00', 'Account'),
+    (007, 'Satish', 'Kumar', 75000, '2014-01-20 09:00:00', 'Account'),
+    (008, 'Geetika', 'Chauhan', 90000, '2014-04-11 09:00:00', 'Admin');
+
+
+SELECT DISTINCT department FROM worker;
+
+
+SELECT department FROM worker
+UNION  ## use ALL UNION TO ALLOW DULICATES
+SELECT department FROM worker_1;
+
+SELECT OrderID, Quantity,
+CASE
+    WHEN Quantity > 30 THEN 'The quantity is greater than 30'
+    WHEN Quantity = 30 THEN 'The quantity is 30'
+    ELSE 'The quantity is under 30'
+END 
+AS QuantityResult
+FROM OrderDetails;
+
+select *from worker;
+SELECT First_name, salary,
+CASE
+    WHEN salary > 300000 THEN 'Rich People'
+    WHEN salary > 300000 && salary <=1000000 THEN 'Middle Layer'
+    WHEN salary <10000 && salary >100000 Then 'Poor People'
+    ELSE "Data Not Found"
+END
+AS
+Status_Check_BasedSalary
+FROM worker;
+
+select * from worker where salary <=200000 order by salary desc;
+select * from worker where salary <=200000 order by salary ASC;
+
+SELECT * FROM worker
+WHERE first_name LIKE '%a_a'; #e.g., "Niharika"
+
+SELECT * FROM worker
+WHERE first_name LIKE '%V_v';
+
+SELECT * FROM worker
+WHERE first_name LIKE '%a';
+
+#  The LIKE '%a_a' pattern means:
+#  = any number of characters before,
+#  a = specific character 'a',
+#  _ = exactly one character,
+#  a = specific character 'a' at the end.
+
+
+CREATE VIEW Admin_team AS 
+SELECT * FROM worker 
+WHERE department = 'Admin' AND salary > 0;
+CREATE VIEW HR_team AS 
+SELECT * FROM worker 
+WHERE department = 'HR' AND salary < 20000;
+CREATE VIEW account_team AS 
+SELECT * FROM worker 
+WHERE department = 'Account' AND salary > 0;
+SELECT * FROM Admin_team;
+SELECT * FROM HR_team;
+SELECT * FROM account_team;
+
+select * from admin_team_status;
+
